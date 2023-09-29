@@ -1,25 +1,35 @@
 from django.db import models
-
+from django.contrib.auth.models import User
+from django.db.models import Count
 # Create your models here.
 
 
 class Student(models.Model):
     Name = models.CharField(max_length=64)
     Surname = models.CharField(max_length=64)
-    Student_number = models.IntegerField(max_length=10)
+    Student_number = models.CharField(max_length=10)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
     def __str__(self):
-        return f"Student numder:{self.Student_number} Name:{self.Name} {self.Surname}"
+        return f"{self.Student_number} {self.Name} {self.Surname}"
 
 class Subject(models.Model):
-    code = models.CharField(max_length=5)
-    Subject = models.CharField(max_length=128)
+    course = models.CharField(max_length=128)
     Semester = models.CharField(max_length=64)
     Year = models.IntegerField()
+    max_quota = models.PositiveIntegerField(default=50)
+    is_open = models.BooleanField(default=True)
+    students = models.ManyToManyField(Student, blank=True, related_name="Subject")
 
     def __str__(self):
-        return f"Code:{self.code} Subject:{self.Subject} Semester:{self.Semester} Year:{self.Year}"
+        return f"{self.course} {self.Semester} {self.Year}"
+        
+    def current_enrollment(self):
+        return self.students.count()
+
+    def is_full(self):
+        return self.current_enrollment() >= self.max_quota
     
 # class Quota(models.Model):
 #     ID = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="Student_number")

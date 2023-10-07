@@ -9,7 +9,11 @@
     {% endblock %}
 </head>
 <body>
+    <a href="/registrar">หน้าแรก</a>
+    <a href="/quota">เช็คโค้วต้า</a>
+    <a href="/listquota">โค้วต้าที่ลง</a>
     {% block body %}
     {% endblock %}
+    <a href="{% url 'logout' %}">Log Out</a>
 </body>
 </html>

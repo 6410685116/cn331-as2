@@ -1,7 +1,7 @@
 {% extends "Register/base.html" %}
 
 {% block title %}
-    <title>Register</title>>
+    <title>Register</title>
 {% endblock %}
 {% block body %}
     <h1>Welcome, {{ request.user.first_name }}</h1>
@@ -10,6 +10,4 @@
     <li>Email: {{ request.user.email }}</li>
     </ul>
     <a href="/quota">เช็คโค้วต้า</a>
-
-    <a href="{% url 'logout' %}">Log Out</a>
 {% endblock %}

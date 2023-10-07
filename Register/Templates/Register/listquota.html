@@ -1,0 +1,19 @@
+{% extends "Register/base.html" %}
+
+{% block title %}
+    <title>โค้วต้าทั้งหมด</title>
+{% endblock %}
+{% block body %}
+    <div class="row g-0">
+        {%for i in enrolled_courses%}
+            <div class="col-sm-6 col-md-8">{{i.course}}</div>
+            <form method = "post" action = "{% url 'delete' i.id %}">
+                {% csrf_token %}
+                <div class="col-6 col-md-4">
+                    <button type="submit">delete</button>
+                    {{message}}
+                </div>
+            </form>        
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -16,8 +16,10 @@ class Student(models.Model):
 
 class Subject(models.Model):
     course = models.CharField(max_length=128)
+    id_course = models.CharField(max_length=128)
     Semester = models.CharField(max_length=64)
     Year = models.IntegerField()
+    quota = models.IntegerField(default=0)
     max_quota = models.PositiveIntegerField(default=50)
     is_open = models.BooleanField(default=True)
     students = models.ManyToManyField(Student, blank=True, related_name="Subject")

@@ -19,7 +19,7 @@ class Subject(models.Model):
     id_course = models.CharField(max_length=128)
     Semester = models.CharField(max_length=64)
     Year = models.IntegerField()
-    quota = models.IntegerField(default=0)
+    quota = models.IntegerField(default=50)
     max_quota = models.PositiveIntegerField(default=50)
     is_open = models.BooleanField(default=True)
     students = models.ManyToManyField(Student, blank=True, related_name="Subject")
@@ -30,8 +30,6 @@ class Subject(models.Model):
     def current_enrollment(self):
         return self.students.count()
 
-    def is_full(self):
-        return self.current_enrollment() >= self.max_quota
     
 # class Quota(models.Model):
 #     ID = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="Student_number")

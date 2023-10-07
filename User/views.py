@@ -5,11 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from Register import views
 
 # Create your views here.
-def index(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('login'))
+# def index(request):
+#     if not request.user.is_authenticated:
+#         return HttpResponseRedirect(reverse('login'))
     
-    return render(request, 'registration/index.html')
+#     return render(request, 'registration/index.html')
 
 
 def login_view(request):
@@ -27,8 +27,8 @@ def login_view(request):
     return render(request, "User/login.html")
 
 
-def logout_view(request):
-    logout(request)
-    return render(request, 'User/login.html', {
-        'message': 'Logged out'
-    })
+# def logout_view(request):
+#     logout(request)
+#     return render(request, 'User/login.html', {
+#         'message': 'Logged out'
+#     })

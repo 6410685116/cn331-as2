@@ -1,9 +1,10 @@
-from django.http import HttpResponse
+from django.http import HttpResponse , HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Subject, Student
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import logout
+from django.urls import reverse
 
 
 # Create your views here.
@@ -34,9 +35,11 @@ def registrar(request):
 #     return render(request, 'enrollment/enroll.html', {'course': course})
 
 def quota(request):
+    user = request.user
+    student = get_object_or_404(Student, user=user) 
     all_course = Subject.objects.all()
     return render(request, 'Register/quota.html',{
-        "all_course": all_course,
+        "all_course": Subject.objects.exclude(students = student),
         'message': "กดลงวิชาไม่ได้เนื่องจากเต็ม",
         })
 
@@ -57,24 +60,26 @@ def quota(request):
 #     return redirect('quota')
 def add_student(request, course_id):
     user = request.user
-    student = get_object_or_404(Student, user=user)
+    student = get_object_or_404(Student, user=user) 
     course = get_object_or_404(Subject, pk=course_id)
 
     if request.method == "POST":
-        if course.max_quota <= course.quota:
+        if 0 >= course.quota:
             return render(request, "Register/quota.html", {
-                'message': 'โค้วต้าเต็ม'
+                'message': 'โค้วต้าเต็ม',
+                'all_course': Subject.objects.all()
             })
         else:
             course.students.add(student)
-            course.quota += 1
+            course.quota -= 1
             course.save()
             return render(request, "Register/quota.html", {
                 'message': 'Success',
+                'all_course': Subject.objects.exclude(students = student)
             })
 
     # Handle the GET request here if needed
-    return render(request, "Register/quota.html")
+    return HttpResponseRedirect(reverse('quota'))
 
 # def add_student(request, course_id):
     # user = request.user
@@ -150,7 +155,7 @@ def delete(request, course_id):
     student = get_object_or_404(Student, user=user)
     course = get_object_or_404(Subject, pk=course_id)
     course.students.remove(student)
-    course.quota -= 1
+    course.quota += 1
     course.save()
     messages.success(request,"เอาโค้วต้าออกเรียบร้อย")
     return redirect("/listquota")

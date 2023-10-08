@@ -1,8 +1,8 @@
 # เว็บลงทะเบียนนักศึกษา
 
-เพื่ม-ถอนรายวิชา
+* เพื่ม-ถอนรายวิชา
 
-https://tuipied-my.sharepoint.com/:v:/g/personal/thanakorn_pra_dome_tu_ac_th/ETdg5AtSSPpIuhxF2ild7ckBA5IgrIEqV2MjsMJIr9sV3g?e=wRR2gA
+* [คลิปตัวอย่าง](https://tuipied-my.sharepoint.com/:v:/g/personal/thanakorn_pra_dome_tu_ac_th/ETdg5AtSSPpIuhxF2ild7ckBA5IgrIEqV2MjsMJIr9sV3g?e=wRR2gA)
 
 ## สมาชิก
 

@@ -4,15 +4,15 @@
 
 ## สมาชิก
 
-นาย ณัฐภัทร โชติเสน 6410685116
-นาย ธนากร พรายมณี 6410685157
+* นาย ณัฐภัทร โชติเสน 6410685116
+* นาย ธนากร พรายมณี 6410685157
 
 ## ตัวอย่างการใช้งาน
 
 ### Log in
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* username
+* password
 
 ### Registrar
 

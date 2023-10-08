@@ -8,14 +8,14 @@
    
 
 <h2 class ="text-center">Login Form</h2>
-
+<br>
 <form action="{% url 'login' %}" method="post">
   {% csrf_token %}
 
   </div>
 
   <div class="container" >
-
+   
     <label for="uname"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="uname" required>
     <label for="psw"><b>Password</b></label>

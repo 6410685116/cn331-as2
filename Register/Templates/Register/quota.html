@@ -8,7 +8,6 @@
     {% csrf_token %}
     <thead>
         <tr>
-            <th scope="col">ลำดับ</th>
             <th scope="col">รหัสวิชา</th>
             <th scope="col">ชื่อวิชา</th>
             <th scope="col">ภาคเรียน</th>
@@ -21,8 +20,7 @@
     <tbody>
     {% for course in all_course %}
         <tr>
-            <th scope="row">{{course.id}}</th>
-            <td>{{course.course}}</td>
+            <th scope="row">{{course.course}}</th>
             <td>{{course.id_course}}</td>
             <td>{{course.Semester}}</td>
             <td>{{course.Year}}</td>
@@ -32,7 +30,7 @@
                 <form method="post" action="{% url 'add_student' course.id %}">
                     {% csrf_token %}
                     <td>
-                        <button type="submit">Register</button>
+                        <button type="submit" class="btn btn-success">Register</button>
                     </td>
                 </form>
             {% else %}

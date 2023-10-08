@@ -5,15 +5,27 @@
 {% endblock %}
 {% block body %}
     <div class="row g-0">
+        
         {%for i in enrolled_courses%}
-            <div class="col-sm-6 col-md-8">{{i.course}}</div>
-            <form method = "post" action = "{% url 'delete' i.id %}">
-                {% csrf_token %}
-                <div class="col-6 col-md-4">
-                    <button type="submit">delete</button>
-                    {{message}}
+        <div class="container">
+            <div class="card w-75 mx-auto">
+                <div class="card-header">
+                    {{i.course}}
                 </div>
-            </form>        
+                <div class="card-body">
+                  <h5 class="card-title">ชื่อวิชา: {{i.id_course}} </h5>
+                  <p class="card-text">ภาคเรียน/ปีการศึกษา: {{i.Semester}}/{{i.Year}}</p>
+                  
+                    <form method = "post" action = "{% url 'delete' i.id %}">
+                        {% csrf_token %}
+                            <div class="col-6 col-md-4">
+                                <button type="submit" class="btn btn-warning">Delete</button>
+                                {{message}}
+                            </div>
+                    </form>
+                 </div>
+            </div>
+        </div> 
         {% endfor %}
     </div>
 {% endblock %}

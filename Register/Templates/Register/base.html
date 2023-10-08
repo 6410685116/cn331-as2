@@ -9,11 +9,51 @@
     {% endblock %}
 </head>
 <body>
-    <a href="/registrar">หน้าแรก</a>
-    <a href="/quota">เช็คโค้วต้า</a>
-    <a href="/listquota">โค้วต้าที่ลง</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/registrar">สำนักทะเบียน</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="/quota">ดูรายวิชา</a>
+              <a class="nav-link" href="/listquota">รายวิชาที่ลง</a>
+            </div>
+          </div>
+        </div>
+      </nav>
     {% block body %}
     {% endblock %}
-    <a href="{% url 'logout' %}">Log Out</a>
+    <!-- Button trigger modal -->
+<br>
+<!-- <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Log out
+  </button> -->
+  
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Log out</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-danger" href="{% url 'logout' %}">Log out</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- <div class="card-footer bg-dark">
+    <a class="btn btn-outline-danger" href="{% url 'logout' %}" role="button">Log out</a>
+  </div> -->
+  <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+    <a class="btn btn-outline-danger" href="{% url 'logout' %}" role="button">Log out</a>
+  </footer>
 </body>
 </html>

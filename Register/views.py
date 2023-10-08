@@ -9,11 +9,21 @@ from django.urls import reverse
 
 # Create your views here.
 
+# def registrar(request):
+#     user = request.user
+#     student = Student.objects.get(user=user)
+#     return render(request, 'Register/archive.html',{
+#         'student': student,
+#         # 'add': Subject.objects.filter(student=student).all(),
+#         # 'not_add': Subject.objects.exclude(student=student).all(),
+#         # 'allcourse' : Subject.objects.all(),
+#     })
+
 def registrar(request):
     user = request.user
-    student = Student.objects.get(user=user)
+    student = get_object_or_404(Student, user=user)
     return render(request, 'Register/archive.html',{
-        'student': student,
+        'student': Student.objects.all(),
         # 'add': Subject.objects.filter(student=student).all(),
         # 'not_add': Subject.objects.exclude(student=student).all(),
         # 'allcourse' : Subject.objects.all(),
@@ -162,6 +172,5 @@ def delete(request, course_id):
 
 def logout_view(request):
     logout(request)
-    return render(request, 'User/login.html', {
-        'message': 'Logged out'
-    })
+    messages.success(request, ("I'm out"))
+    return redirect('/')

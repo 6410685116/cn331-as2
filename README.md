@@ -16,7 +16,7 @@
 * username
 * password
 
-![image](https://imgur.com/PwgoyL0)
+![image](https://imgur.com/PwgoyL0.jpg)
 
 ### Registrar
 

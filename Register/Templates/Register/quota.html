@@ -4,6 +4,12 @@
     <title>quota</title>
 {% endblock %}
 {% block body %}
+
+<br>
+    <div class="center">
+        <h1>รายวิชา</h1>
+    </div>
+<br>
 <table class="table table-striped table-hover" method="post">
     {% csrf_token %}
     <thead>
@@ -13,7 +19,7 @@
             <th scope="col">ภาคเรียน</th>
             <th scope="col">ปีการศึกษา</th>
             <th scope="col">สถานะ</th>
-            <th scope="col">จำนวนที่นั่ง</th>
+            <th scope="col">ที่ว่างเหลือ</th>
             <th scope="col"></th>
         </tr>
     </thead>

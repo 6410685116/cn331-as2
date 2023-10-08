@@ -2,6 +2,8 @@
 
 เพื่ม-ถอนรายวิชา
 
+https://tuipied-my.sharepoint.com/:v:/g/personal/thanakorn_pra_dome_tu_ac_th/ETdg5AtSSPpIuhxF2ild7ckBA5IgrIEqV2MjsMJIr9sV3g?e=wRR2gA
+
 ## สมาชิก
 
 |          Name         |  Student ID  |
@@ -46,3 +48,5 @@
 * ปุ่มถอนรายวิชา
 
 ![image](https://i.imgur.com/FI1SgYn.png)
+
+

@@ -42,7 +42,10 @@
             {% else %}
                 <td>ปิด</td>
                 <td>{{course.max_quota}}</td>
-                <td>ไม่สามารถลงทะเบียนได้</td>
+                <div class="text">
+                   <td>ไม่สามารถลงทะเบียนได้</td> 
+                </div>
+                
             {% endif %}
         </tr>
     {% endfor %}

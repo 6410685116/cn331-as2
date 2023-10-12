@@ -12,7 +12,7 @@ from django.urls import reverse
 def registrar(request):
     user = request.user
     student = get_object_or_404(Student, user=user)
-    return render(request, 'Register/archive.html',{
+    return render(request, './Register/archive.html',{
         'student': student,
     })
 
@@ -20,7 +20,7 @@ def quota(request):
     user = request.user
     student = get_object_or_404(Student, user=user) 
     all_course = Subject.objects.all()
-    return render(request, 'Register/quota.html',{
+    return render(request, './Register/quota.html',{
         "all_course": Subject.objects.exclude(students = student),
         'message': "กดลงวิชาไม่ได้เนื่องจากเต็ม",
         })
@@ -32,7 +32,7 @@ def add_student(request, course_id):
 
     if request.method == "POST":
         if 0 >= course.quota:
-            return render(request, "Register/quota.html", {
+            return render(request, "./Register/quota.html", {
                 'message': 'โค้วต้าเต็ม',
                 'all_course': Subject.objects.all(),
             })
@@ -40,7 +40,7 @@ def add_student(request, course_id):
             course.students.add(student)
             course.quota -= 1
             course.save()
-            return render(request, "Register/quota.html", {
+            return render(request, "./Register/quota.html", {
                 'message': 'Success',
                 'all_course': Subject.objects.exclude(students = student),
             })
@@ -52,7 +52,7 @@ def quotalist(request):
     user = request.user
     student = Student.objects.get(user = user)
     enrolled_courses = Subject.objects.filter(students = student)
-    return render(request, 'Register/listquota.html', {
+    return render(request, './Register/listquota.html', {
         "enrolled_courses": enrolled_courses,
         'user': user,
     })
@@ -65,7 +65,7 @@ def delete(request, course_id):
     course.quota += 1
     course.save()
     messages.success(request,"เอาโค้วต้าออกเรียบร้อย")
-    return redirect("/listquota")
+    return redirect("listquota")
 
 def logout_view(request):
     logout(request)

@@ -65,7 +65,7 @@ def delete(request, course_id):
     course.quota += 1
     course.save()
     messages.success(request,"เอาโค้วต้าออกเรียบร้อย")
-    return redirect("quotalist")
+    return redirect("listquota")
 
 def logout_view(request):
     logout(request)

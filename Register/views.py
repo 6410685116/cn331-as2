@@ -18,7 +18,7 @@ def registrar(request):
 
 def quota(request):
     user = request.user
-    student = get_object_or_404(Student, user=user) 
+    student = get_object_or_404(Student, user=user)
     all_course = Subject.objects.all()
     return render(request, './Register/quota.html',{
         "all_course": Subject.objects.exclude(students = student),
@@ -27,7 +27,7 @@ def quota(request):
 
 def add_student(request, course_id):
     user = request.user
-    student = get_object_or_404(Student, user=user) 
+    student = get_object_or_404(Student, user=user)
     course = get_object_or_404(Subject, pk=course_id)
 
     if request.method == "POST":
@@ -65,7 +65,7 @@ def delete(request, course_id):
     course.quota += 1
     course.save()
     messages.success(request,"เอาโค้วต้าออกเรียบร้อย")
-    return redirect("listquota")
+    return redirect("quotalist")
 
 def logout_view(request):
     logout(request)

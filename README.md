@@ -2,7 +2,7 @@
 
 * เพื่ม-ถอนรายวิชา
 
-* [เว็บลงทะเบียน](https://6410685157.pythonanywhere.com/)
+* [เว็บลงทะเบียน](http://6410685157.pythonanywhere.com/)
 
 
 * [คลิปตัวอย่าง](https://tuipied-my.sharepoint.com/:v:/g/personal/thanakorn_pra_dome_tu_ac_th/ETdg5AtSSPpIuhxF2ild7ckBA5IgrIEqV2MjsMJIr9sV3g?e=wRR2gA)

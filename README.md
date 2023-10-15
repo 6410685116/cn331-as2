@@ -18,14 +18,14 @@
 * username
 * password
 
-![image](https://imgur.com/PwgoyL0.png)
+![image](https://i.imgur.com/f4IaIId.jpg)
 
 ### Registrar
 
 * หน้าแรกหลังจากlog in
 * แสดงข้อมูลของผู้ใช้บริการ
 
-![image](https://i.imgur.com/jEP8YQ1.png)
+![image](https://i.imgur.com/yeJwDHU.jpg)
 
 ### Course
 
@@ -36,7 +36,7 @@
 * จำนวนโควต้าที่ลงได้
 * ปุ่มลงทะเบียนรายวิชา
 
-![image](https://i.imgur.com/vVOVekF.png)
+![image](https://i.imgur.com/RICVixv.jpg)
 
 ### My course
 
@@ -47,6 +47,6 @@
 * จำนวนโควต้าที่ลงได้
 * ปุ่มถอนรายวิชา
 
-![image](https://i.imgur.com/FI1SgYn.png)
+![image](https://i.imgur.com/iqrl5ld.jpg)
 
 

@@ -14,18 +14,20 @@ class TestArichive(TestCase):
         self.client = Client()
         self.registrar = reverse('registrar')
         self.user = User.objects.create_user(username="6410000212", password= "gobackn007")
-        self.client.login(username="6410000212", password="gobackn007")
+        # self.client.login(username="6410000212", password="gobackn007")
         self.student = Student.objects.create(Name ="terapat", Surname = "prirapon", Student_number = "6410000212", user= self.user)
         
     def test_url_registrar(self):
         self.assertEquals(resolve(self.registrar).func, registrar)
 
     def test_archive_templates(self):
+        self.client.login(username="6410000212", password="gobackn007")
         response = self.client.get(self.registrar)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, './Register/archive.html')
 
     def test_registrar_student(self):
+        self.client.login(username="6410000212", password="gobackn007")
         response = self.client.get(self.registrar)
         self.assertEquals(response.status_code, 200)
         self.assertIn('student', response.context)
@@ -36,7 +38,7 @@ class TestQuota(TestCase):
         self.client = Client()
         self.quota = reverse('quota')
         self.user = User.objects.create_user(username="6410000212", password= "gobackn007")
-        self.client.login(username="6410000212", password="gobackn007")
+        # self.client.login(username="6410000212", password="gobackn007")
         self.student = Student.objects.create(Name ="terapat", Surname = "prirapon", Student_number = "6410000212", user= self.user)
         self.subject1 = Subject.objects.create(course = "DATA STRUCTURES I",
                                           id_course = "CN202",
@@ -57,10 +59,12 @@ class TestQuota(TestCase):
     def test_url_registrar(self):
         self.assertEquals(resolve(self.quota).func, quota)
     def test_quota_templates(self):
+        self.client.login(username="6410000212", password="gobackn007")
         response = self.client.get(self.quota)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, './Register/quota.html')
     def test_render_all_course(self):
+        self.client.login(username="6410000212", password="gobackn007")
         response = self.client.get(self.quota)
         self.assertEquals(response.status_code, 200)
         self.assertIn('all_course', response.context)
@@ -70,6 +74,7 @@ class TestQuota(TestCase):
     #         ordered=False
     #     )
     def test_reder_message(self):
+        self.client.login(username="6410000212", password="gobackn007")
         self.subject2.students.add(self.student)
         response = self.client.get(self.quota)
         self.assertIn('message', response.context)
@@ -84,7 +89,7 @@ class TestAddStudent(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.user = User.objects.create_user(username="6410000212", password= "gobackn007")
-        self.client.login(username="6410000212", password="gobackn007")
+        # self.client.login(username="6410000212", password="gobackn007")
         self.student = Student.objects.create(Name ="terapat", Surname = "prirapon", Student_number = "6410000212", user= self.user)
         self.subject1 = Subject.objects.create(course = "DATA STRUCTURES I",
                                           id_course = "CN202",
@@ -103,6 +108,7 @@ class TestAddStudent(TestCase):
                                           is_open = True,
                                           )
     def test_add_student(self):
+        self.client.login(username="6410000212", password="gobackn007")
         url = reverse('add_student', args=[int(self.subject1.id)])
         response = self.client.post(url)
         self.assertEqual(response.status_code, 200)
@@ -110,6 +116,7 @@ class TestAddStudent(TestCase):
         updated_course = Subject.objects.get(pk=self.subject1.id)
         self.assertEqual(updated_course.quota, 49)
     def test_add_student_quota_full_view(self):
+        self.client.login(username="6410000212", password="gobackn007")
         url = reverse('add_student', args=[str(self.subject2.id)])
         response = self.client.post(url)
         self.assertEqual(response.status_code, 200)
@@ -127,7 +134,7 @@ class TestQuotaList(TestCase):
         self.client = Client()
         self.quotalist = reverse('quotalist')
         self.user = User.objects.create_user(username="6410000212", password= "gobackn007")
-        self.client.login(username="6410000212", password="gobackn007")
+        # self.client.login(username="6410000212", password="gobackn007")
         self.student = Student.objects.create(Name ="terapat", Surname = "prirapon", Student_number = "6410000212", user= self.user)
         self.subject1 = Subject.objects.create(course = "DATA STRUCTURES I",
                                           id_course = "CN202",
@@ -149,14 +156,17 @@ class TestQuotaList(TestCase):
     def test_url_listquota(self):
         self.assertEquals(resolve(self.quotalist).func, quotalist)
     def test_quotalist_templates(self):
+        self.client.login(username="6410000212", password="gobackn007")
         response = self.client.get(self.quotalist)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, './Register/listquota.html')
     def test_quotalist_view(self):
+        self.client.login(username="6410000212", password="gobackn007")
         response = self.client.get(self.quotalist)
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['enrolled_courses'], [])
     def rest_quotalist_enrolled_courses(self):
+        self.client.login(username="6410000212", password="gobackn007")
         self.subject1.students.add(self.student)
         self.subject2.students.add(self.student)
         response = self.client.get(self.quotalist)
@@ -176,7 +186,7 @@ class TestDelete(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.user = User.objects.create_user(username="6410000212", password= "gobackn007")
-        self.client.login(username="6410000212", password="gobackn007")
+        # self.client.login(username="6410000212", password="gobackn007")
         self.student = Student.objects.create(Name ="terapat", Surname = "prirapon", Student_number = "6410000212", user= self.user)
         self.subject1 = Subject.objects.create(course = "DATA STRUCTURES I",
                                           id_course = "CN202",
@@ -202,9 +212,10 @@ class TestLogOutViews(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.user = User.objects.create_user(username="6410000212", password= "gobackn007")
-        self.client.login(username="6410000212", password="gobackn007")
+        # self.client.login(username="6410000212", password="gobackn007")
         self.logout = reverse('logout')
     def test_logout_view(self):
+        self.client.login(username="6410000212", password="gobackn007")
         response = self.client.get(self.logout)
         if response.context is not None:
             user_in_context = response.context.get('user')

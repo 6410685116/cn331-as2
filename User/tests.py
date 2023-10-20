@@ -33,8 +33,7 @@ class LogInViewsTest(TestCase):
         self.client.login(username="6410000212", password="gobackn007")
         response = self.client.post(self.login_url, {"uname": "6410000212", "psw": "gobackn007"})
         self.assertEqual(response.status_code, 302)
-        # registrar_url = reverse('Register:registrar')
-        # self.assertRedirects(response, HttpResponseRedirect(reverse(registrar)))
+        self.assertEqual(response.url, '/registrar/')
 
     def test_user_is_none(self):
         response = self.client.post(self.login_url, {"uname": "6410000200", "psw": "007008ZA"})

@@ -1,11 +1,8 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 # from Register.models import Student
-from django.shortcuts import redirect
 from django.urls import reverse, resolve
 from User.views import login_view
-from Register.views import registrar
-from django.http import HttpResponseRedirect
 # from django.contrib.auth.hashers import make_password
 
 # Create your tests here.

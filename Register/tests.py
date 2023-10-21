@@ -24,7 +24,7 @@ class TestArichive(TestCase):
         self.client.login(username="6410000212", password="gobackn007")
         response = self.client.get(self.registrar)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, './Register/archive.html')
+        self.assertTemplateUsed(response, 'Register/archive.html')
 
     def test_registrar_student(self):
         self.client.login(username="6410000212", password="gobackn007")

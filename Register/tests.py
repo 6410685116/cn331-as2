@@ -2,9 +2,7 @@ from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.urls import reverse, resolve
 from .models import Student, Subject
-from User.views import login
 from .views import registrar, quota, quotalist
-from django.http import HttpResponseRedirect
 from django.contrib.messages import get_messages
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages import get_messages
@@ -72,7 +70,6 @@ class TestQuota(TestCase):
             [subject for subject in Subject.objects.exclude(students=self.student)][i]
             )
     def test_reder_message(self):
-        self.client.login(username="6410000212", password="gobackn007")
         self.subject2.students.add(self.student)
         response = self.client.get(self.quota)
         self.assertIn('message', response.context)
@@ -199,7 +196,7 @@ class TestDelete(TestCase):
         self.assertEqual(self.subject1.students.count(), 1)
         url = reverse('delete', args=[int(self.subject1.id)])
         response = self.client.get(url)
-        # self.subject1.students.remove(self.student)
+        self.assertIn(response.status_code, [200, 302])
         self.assertEqual(self.subject1.students.count(), 0)
         self.assertEqual(self.subject1.quota, 0)
     def test_delete_message(self):
@@ -228,14 +225,12 @@ class TestLogOutViews(TestCase):
                 self.assertFalse(user_in_context.is_authenticated)
             else:
                 self.assertIsInstance(response.context['user'], AnonymousUser)
-
     def test_message_logout_view(self):
         response = self.client.get(self.logout)
         messages = list(get_messages(response.wsgi_request))
         self.assertIn(response.status_code, [200, 302])
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), "I'm out")
-
     def test_redirect_login(self):
         response = self.client.get(self.logout)
         self.assertEqual(response.url, "/")

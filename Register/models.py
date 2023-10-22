@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Count
 # Create your models here.
 
 
@@ -12,7 +11,7 @@ class Student(models.Model):
 
 
     def __str__(self):
-        return f"{self.Student_number} {self.Name} {self.Surname}"
+        return f"{self.Student_number} {self.Name} {self.Surname} {self.user}"
 
 class Subject(models.Model):
     course = models.CharField(max_length=128)
@@ -25,7 +24,7 @@ class Subject(models.Model):
     students = models.ManyToManyField(Student, blank=True, related_name="Subject")
 
     def __str__(self):
-        return f"{self.course} {self.Semester} {self.Year}"
+        return f"{self.course} {self.id_course} {self.Semester} {self.Year} {self.quota} {self.max_quota} {self.is_open} {self.students}"
         
     def current_enrollment(self):
         return self.students.count()

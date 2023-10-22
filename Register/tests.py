@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase, Client, RequestFactory
 from django.contrib.auth.models import User
 from django.urls import reverse, resolve
 from .models import Student, Subject
@@ -78,6 +78,7 @@ class TestQuota(TestCase):
 
 class TestAddStudent(TestCase):
     def setUp(self) -> None:
+        self.factory = RequestFactory()
         self.client = Client()
         self.user = User.objects.create_user(username="6410000212", password= "gobackn007")
         self.student = Student.objects.create(Name ="terapat", Surname = "prirapon", Student_number = "6410000212", user= self.user)
@@ -118,8 +119,6 @@ class TestAddStudent(TestCase):
         response = self.client.post(self.login_url, {"uname": "6410000200", "psw": "007008ZA"})
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(response.context['user'], AnonymousUser)
-        # self.client.login(username="6410000200", password="007008ZA")
-        # self.assertEqual(response.url,  None)
 
 class TestQuotaList(TestCase):
     def setUp(self) -> None:
@@ -144,7 +143,6 @@ class TestQuotaList(TestCase):
                                           max_quota = 50,
                                           is_open = True,
                                           )
-
     def test_url_listquota(self):
         self.assertEquals(resolve(self.quotalist).func, quotalist)
     def test_quotalist_templates(self):

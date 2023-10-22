@@ -98,12 +98,17 @@ class TestAddStudent(TestCase):
                                           max_quota = 50,
                                           is_open = True,
                                           )
-    def test_add_student(self):
+    def test_add_student_message(self):
         self.client.login(username="6410000212", password="gobackn007")
         url = reverse('add_student', args=[int(self.subject1.id)])
         response = self.client.post(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['message'], 'Success')
+    def test_add_student_count(self):
+        self.client.login(username="6410000212", password="gobackn007")
+        url = reverse('add_student', args=[int(self.subject1.id)])
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 200)
         updated_course = Subject.objects.get(pk=self.subject1.id)
         self.assertEqual(updated_course.quota, 49)
     def test_add_student_quota_full_view(self):
@@ -198,6 +203,7 @@ class TestDelete(TestCase):
     def test_redirect_delete(self):
         url = reverse('delete', args=[int(self.subject1.id)])
         response = self.client.get(url)
+        self.assertIn(response.status_code, [200, 302])
         self.assertEqual(response.url, "/listquota/")
 
 class TestLogOutViews(TestCase):
@@ -222,4 +228,5 @@ class TestLogOutViews(TestCase):
         self.assertEqual(str(messages[0]), "I'm out")
     def test_redirect_login(self):
         response = self.client.get(self.logout)
+        self.assertIn(response.status_code, [200, 302])
         self.assertEqual(response.url, "/")

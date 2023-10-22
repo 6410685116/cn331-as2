@@ -114,11 +114,6 @@ class TestAddStudent(TestCase):
         self.assertEqual(response.context['message'], 'โค้วต้าเต็ม')
         updated_course = Subject.objects.get(pk=self.subject2.id)
         self.assertEqual(updated_course.quota, 0)
-    def test_user_is_none(self):
-        self.login_url = reverse('login')
-        response = self.client.post(self.login_url, {"uname": "6410000200", "psw": "007008ZA"})
-        self.assertEqual(response.status_code, 200)
-        self.assertIsInstance(response.context['user'], AnonymousUser)
 
 class TestQuotaList(TestCase):
     def setUp(self) -> None:

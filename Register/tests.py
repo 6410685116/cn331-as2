@@ -111,12 +111,17 @@ class TestAddStudent(TestCase):
         self.assertEqual(response.status_code, 200)
         updated_course = Subject.objects.get(pk=self.subject1.id)
         self.assertEqual(updated_course.quota, 49)
-    def test_add_student_quota_full_view(self):
+    def test_add_student_quota_full_view_message(self):
         self.client.login(username="6410000212", password="gobackn007")
         url = reverse('add_student', args=[str(self.subject2.id)])
         response = self.client.post(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['message'], 'โค้วต้าเต็ม')
+    def test_add_student_quota_full_view_count(self):
+        self.client.login(username="6410000212", password="gobackn007")
+        url = reverse('add_student', args=[str(self.subject2.id)])
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 200)    
         updated_course = Subject.objects.get(pk=self.subject2.id)
         self.assertEqual(updated_course.quota, 0)
 
@@ -153,7 +158,7 @@ class TestQuotaList(TestCase):
         response = self.client.get(self.quotalist)
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['enrolled_courses'], [])
-    def rest_quotalist_enrolled_courses(self):
+    def test_quotalist_enrolled_courses_template(self):
         self.subject1.students.add(self.student)
         self.subject2.students.add(self.student)
         response = self.client.get(self.quotalist)
@@ -164,7 +169,6 @@ class TestQuotaList(TestCase):
         self.subject2.students.add(self.student)
         response = self.client.get(self.quotalist)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, './Register/listquota.html')
         for i in range(0, len([subject for subject in Subject.objects.filter(students = self.student)])):
             self.assertEqual(
             response.context['enrolled_courses'][i],
@@ -186,7 +190,7 @@ class TestDelete(TestCase):
                                           is_open = True,
                                           )
         self.subject1.students.add(self.student)
-    def test_delete_view(self):
+    def test_delete_view_count(self):
         self.assertEqual(self.subject1.students.count(), 1)
         url = reverse('delete', args=[int(self.subject1.id)])
         response = self.client.get(url)

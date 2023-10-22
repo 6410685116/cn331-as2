@@ -7,7 +7,6 @@ from django.contrib.messages import get_messages
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages import get_messages
 
-
 # Create your tests here.
 class TestArichive(TestCase):
     def setUp(self) -> None:
@@ -16,15 +15,12 @@ class TestArichive(TestCase):
         self.user = User.objects.create_user(username="6410000212", password= "gobackn007")
         self.client.login(username="6410000212", password="gobackn007")
         self.student = Student.objects.create(Name ="terapat", Surname = "prirapon", Student_number = "6410000212", user= self.user)
-        
     def test_url_registrar(self):
         self.assertEquals(resolve(self.registrar).func, registrar)
-
     def test_archive_templates(self):
         response = self.client.get(self.registrar)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, './Register/archive.html')
-
     def test_registrar_student(self):
         response = self.client.get(self.registrar)
         self.assertEquals(response.status_code, 200)

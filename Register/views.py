@@ -1,4 +1,4 @@
-from django.http import HttpResponse , HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Subject, Student
 from django.shortcuts import get_object_or_404
@@ -47,8 +47,6 @@ def add_student(request, course_id):
     return HttpResponseRedirect(reverse('/'))
 
 def quotalist(request):
-
-    all_courses = Subject.objects.all()
     user = request.user
     student = Student.objects.get(user = user)
     enrolled_courses = Subject.objects.filter(students = student)

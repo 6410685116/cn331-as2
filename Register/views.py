@@ -19,7 +19,6 @@ def registrar(request):
 def quota(request):
     user = request.user
     student = get_object_or_404(Student, user=user) 
-    all_course = Subject.objects.all()
     return render(request, './Register/quota.html',{
         "all_course": Subject.objects.exclude(students = student),
         'message': "กดลงวิชาไม่ได้เนื่องจากเต็ม",

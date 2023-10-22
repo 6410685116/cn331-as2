@@ -1,8 +1,8 @@
-from django.test import TestCase, Client, RequestFactory
+from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.urls import reverse, resolve
 from .models import Student, Subject
-from .views import registrar, quota, quotalist
+from .views import registrar, quota, quotalist, logout_view
 from django.contrib.messages import get_messages
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages import get_messages
@@ -50,7 +50,7 @@ class TestQuota(TestCase):
                                           max_quota = 50,
                                           is_open = True,
                                           )
-    def test_url_registrar(self):
+    def test_url_quota(self):
         self.assertEquals(resolve(self.quota).func, quota)
     def test_quota_templates(self):
         response = self.client.get(self.quota)
@@ -65,7 +65,7 @@ class TestQuota(TestCase):
             response.context['all_course'][i],
             [subject for subject in Subject.objects.exclude(students=self.student)][i]
             )
-    def test_reder_message(self):
+    def test_render_message(self):
         self.subject2.students.add(self.student)
         response = self.client.get(self.quota)
         self.assertIn('message', response.context)
@@ -78,7 +78,6 @@ class TestQuota(TestCase):
 
 class TestAddStudent(TestCase):
     def setUp(self) -> None:
-        self.factory = RequestFactory()
         self.client = Client()
         self.user = User.objects.create_user(username="6410000212", password= "gobackn007")
         self.student = Student.objects.create(Name ="terapat", Surname = "prirapon", Student_number = "6410000212", user= self.user)
@@ -174,6 +173,11 @@ class TestQuotaList(TestCase):
             response.context['enrolled_courses'][i],
             [subject for subject in Subject.objects.filter(students = self.student)][i]
             )
+    def test_quotalist_user(self):
+        response = self.client.get(self.quotalist)
+        self.assertEquals(response.status_code, 200)
+        self.assertIn('user', response.context)
+        self.assertEqual(response.context['user'], self.user)
 
 class TestDelete(TestCase):
     def setUp(self) -> None:
@@ -216,6 +220,8 @@ class TestLogOutViews(TestCase):
         self.user = User.objects.create_user(username="6410000212", password= "gobackn007")
         self.client.login(username="6410000212", password="gobackn007")
         self.logout = reverse('logout')
+    def test_url_logout_view(self):
+        self.assertEquals(resolve(self.logout).func, logout_view)
     def test_logout_view(self):
         response = self.client.get(self.logout)
         if response.context is not None:
